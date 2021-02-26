@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador contador</title>
+</head>
+<body>
+    <p>Valor actual: <span id="valor-actual"></span></p>
+    <input type="text" id="valor">
+    <button onclick="guardar()">Guardar</button>
+    <script>
+        fetch("https://api.keyvalue.xyz/77bfdd39/valor")
+        .then(res => {
+            if(!res.ok) alert("Error del programa");
+            return res.text();
+        })
+        .then(valor => {
+            document.getElementById("valor-actual").innerHTML = valor;
+        })
+
+        function guardar() {
+            var valor = document.getElementById("valor").value;
+            fetch("https://api.keyvalue.xyz/77bfdd39/valor/" + valor, {method: 'POST'})
+            .then(res => {
+                if(!res.ok) alert("Error del programa");
+                document.getElementById("valor-actual").innerHTML = valor;
+            })
+        }
+    </script>
+</body>
+</html>
